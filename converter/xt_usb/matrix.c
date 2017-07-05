@@ -227,8 +227,13 @@ inline
 static void matrix_make(uint8_t code)
 {
     if (!matrix_is_on(ROW(code), COL(code))) {
+		xprintf("!Make \n");
         matrix[ROW(code)] |= 1<<COL(code);
     }
+	else {
+		xprintf("Make \n");
+        matrix[ROW(code)] &= ~(1<<COL(code));
+	}
 }
 
 inline
