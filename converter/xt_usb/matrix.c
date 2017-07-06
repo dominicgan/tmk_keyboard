@@ -119,6 +119,29 @@ uint8_t matrix_scan(void)
         matrix_break(PAUSE);
     }
 
+    for (uint8_t ci=0; ci < 49; ci++) {
+        if (matrix_is_on(ROW(ci), COL(ci))) {
+            matrix_break(ci);
+        }
+    }
+
+
+    if (matrix_is_on(ROW(0x40), COL(0x40))) {
+        matrix_break(0x40);
+    }
+
+    if (matrix_is_on(ROW(0x42), COL(0x42))) {
+        matrix_break(0x42);
+    }
+
+    if (matrix_is_on(ROW(0x43), COL(0x43))) {
+        matrix_break(0x43);
+    }
+
+    if (matrix_is_on(ROW(0x47), COL(0x47))) {
+        matrix_break(0x47);
+    }
+
     uint8_t code = xt_host_recv();
     switch (state) {
         case INIT:
@@ -225,7 +248,7 @@ uint8_t matrix_get_row(uint8_t row)
 
 inline
 static void matrix_make(uint8_t code)
-{
+{   
     if (!matrix_is_on(ROW(code), COL(code))) {
         matrix[ROW(code)] |= 1<<COL(code); // keydown
     }
